@@ -1,0 +1,114 @@
+---
+const { data } = Astro.props;
+---
+
+<div class="stats-container">
+  <div class="table-header">
+    <span>AGENTS</span>
+    <div class="time-filters">
+      <span>PAST:</span>
+      <button>30d</button>
+      <button class="active">60d</button>
+      <button>90d</button>
+      <button>All</button>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table>
+      <thead>
+        <tr>
+          <th>USE</th>
+          <th>RND</th>
+          <th>RATING<sup>2.0</sup></th>
+          <th>ACS</th>
+          <th>K:D</th>
+          <th>ADR</th>
+          <th>KAST</th>
+          <th>KPR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row) => (
+          <tr>
+            <td class="agent-cell">
+              <img src={`/agents/${row.agent.toLowerCase()}.webp`} alt={row.agent} />
+              <span class="use-pct">{row.use}</span>
+            </td>
+            <td>{row.rnd}</td>
+            <td class="highlight">{row.rating}</td>
+            <td>{row.acs}</td>
+            <td>{row.kd}</td>
+            <td>{row.adr}</td>
+            <td>{row.kast}</td>
+            <td>{row.kpr}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .stats-container {
+    background: #24292f;
+    border-radius: 4px;
+    color: #eee;
+    font-family: sans-serif;
+    padding: 1rem;
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+    font-size: 0.8rem;
+    color: #ff4655; /* Couleur Valorant */
+    font-weight: bold;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+
+  th {
+    text-align: center;
+    padding: 10px;
+    color: #999;
+    font-weight: 400;
+  }
+
+  td {
+    text-align: center;
+    padding: 12px 8px;
+    border-bottom: 1px solid #333;
+  }
+
+  .agent-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .agent-cell img {
+    width: 32px;
+    height: 32px;
+    background: #333;
+    border-radius: 4px;
+  }
+
+  .highlight {
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .active {
+    background: #ff4655;
+    color: white;
+    border-radius: 2px;
+    padding: 0 4px;
+  }
+</style>
