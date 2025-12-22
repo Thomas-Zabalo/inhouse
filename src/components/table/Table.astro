@@ -29,7 +29,7 @@ const statsWithPercent = stats.map((s) => ({
 ---
 
 <table class="min-w-full divide-y divide-gray-600 text-gray-200 overflow-hidden">
-  <thead class="bg-gray-700">
+  <thead class="bg-neutral-800">
     <tr>
       <th class="px-4 py-2 text-left text-sm font-medium">Agent</th>
       <th class="px-4 py-2 text-left text-sm font-medium">Use</th>
@@ -43,9 +43,9 @@ const statsWithPercent = stats.map((s) => ({
       <th class="px-4 py-2 text-left text-sm font-medium">FD</th>
     </tr>
   </thead>
-  <tbody class="bg-gray-800 divide-y divide-gray-600">
+  <tbody class="bg-gray-900 divide-y divide-gray-600">
     {statsWithPercent.map((stat, i) => (
-      <tr class={i % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}>
+      <tr class={i % 2 === 0 ? "bg-slate-800" : "bg-gray-800"}>
         <td class="px-4 py-2 flex items-center gap-2">
           <img
             src={`/agents/${stat.agentName}.webp`}
