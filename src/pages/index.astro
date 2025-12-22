@@ -1,0 +1,23 @@
+---
+import Content from "../components/Content.astro";
+import Hero from "../components/Hero.astro";
+import Sponsor from "../components/Sponsor.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
+---
+
+<Layout>
+	<Hero
+		title="Takaa's Private InHouses"
+		description="Consultez l'historique de tous les matchs custom Valorant en 5v5, les joueurs et leurs performances. D'autres features arrivent bientôt."
+		promote={true}
+	/>
+	<hr
+		class="w-1/2 mx-auto lg:mt-12 py-8 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-black/10 dark:border-white/10 text-black dark:text-white"
+	/>
+	<Content />
+	<hr
+		class="w-1/2 mx-auto lg:mt-12 py-8 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-black/10 dark:border-white/10 text-black dark:text-white"
+	/>
+	<Sponsor />
+</Layout>

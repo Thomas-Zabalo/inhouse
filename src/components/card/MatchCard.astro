@@ -1,0 +1,77 @@
+---
+interface Props {
+    teamLeft: string;
+    teamRight: string;
+    scoreLeft: number;
+    scoreRight: number;
+    logoLeft: string;
+    logoRight: string;
+    date: string;
+    time: string;
+}
+const {
+    teamLeft,
+    teamRight,
+    scoreLeft,
+    scoreRight,
+    logoLeft,
+    logoRight,
+    date,
+    time,
+} = Astro.props;
+---
+
+<div class="match-card">
+  <div class="match-container">
+    <div class="match-header">
+      <div class="match-logo">
+        <img src="/spike.svg" alt="Match Logo" width="30" height="30" />
+      </div>
+    </div>
+
+    <div class="team team-left">
+      <div></div>
+      <div class="team-info">
+        <div class="team-name">{teamLeft}</div>
+      </div>
+      <div class="team-logo">
+        <img
+          src={logoLeft}
+          alt={`${teamLeft} Logo`}
+          width="30"
+          height="30"
+        />
+      </div>
+    </div>
+
+    <div class="score-container">
+      <div class="score">
+        <div class="">{scoreLeft}</div>
+      </div>
+      <div class="vs">:</div>
+      <div class="score">
+        <div class="">{scoreRight}</div>
+      </div>
+    </div>
+
+    <div class="team team-right">
+      <div class="team-logo">
+        <img
+          src={logoRight}
+          alt={`${teamRight} Logo`}
+          width="30"
+          height="30"
+        />
+      </div>
+      <div class="team-info">
+        <div class="team-name">{teamRight}</div>
+      </div>
+      <div></div>
+    </div>
+
+    <div class="match-info">
+      <div class="match-date">{date}</div>
+      <div class="match-time">{time}</div>
+    </div>
+  </div>
+</div>

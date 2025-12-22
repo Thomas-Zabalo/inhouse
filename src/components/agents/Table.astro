@@ -1,0 +1,69 @@
+---
+interface AgentStat {
+  agentName: string;
+  use: number;
+  acs: number;
+  kd: string;
+  kast: string;
+  k: number;
+  d: number;
+  a: number;
+  fk: number;
+  fd: number;
+}
+
+interface Props {
+  stats: AgentStat[];
+}
+
+const { stats } = Astro.props;
+
+// Calculer le total des "use"
+const totalUses = stats.reduce((sum, s) => sum + s.use, 0);
+
+// Ajouter le pourcentage automatiquement
+const statsWithPercent = stats.map((s) => ({
+  ...s,
+  percent: ` (${((s.use / totalUses) * 100).toFixed(1)}%)`
+}));
+---
+
+<table class="min-w-full divide-y divide-gray-600 text-gray-200 overflow-hidden">
+  <thead class="bg-gray-700">
+    <tr>
+      <th class="px-4 py-2 text-left text-sm font-medium">Agent</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">Use</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">ACS</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">K:D</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">KAST</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">K</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">D</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">A</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">FK</th>
+      <th class="px-4 py-2 text-left text-sm font-medium">FD</th>
+    </tr>
+  </thead>
+  <tbody class="bg-gray-800 divide-y divide-gray-600">
+    {statsWithPercent.map((stat, i) => (
+      <tr class={i % 2 === 0 ? "bg-gray-800" : "bg-gray-700"}>
+        <td class="px-4 py-2 flex items-center gap-2">
+          <img
+            src={`/agents/${stat.agentName}.webp`}
+            alt={stat.agentName}
+            class="w-6 h-6"
+          />
+          {stat.agentName}
+        </td>
+        <td class="px-4 py-2">{stat.use}{stat.percent}</td>
+        <td class="px-4 py-2">{stat.acs}</td>
+        <td class="px-4 py-2">{stat.kd}</td>
+        <td class="px-4 py-2">{stat.kast}</td>
+        <td class="px-4 py-2">{stat.k}</td>
+        <td class="px-4 py-2">{stat.d}</td>
+        <td class="px-4 py-2">{stat.a}</td>
+        <td class="px-4 py-2">{stat.fk}</td>
+        <td class="px-4 py-2">{stat.fd}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>

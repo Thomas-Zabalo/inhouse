@@ -1,0 +1,26 @@
+---
+import MatchCard from "./card/MatchCard.astro";
+---
+
+<section id="match-history">
+    <MatchCard
+        teamLeft="BLUE"
+        teamRight="RED"
+        scoreLeft={13}
+        scoreRight={9}
+        logoLeft="/blue_side.svg"
+        logoRight="/red_side.svg"
+        date="21/12/2025"
+        time="10:00 pm"
+    />
+    <MatchCard
+        teamLeft="BLUE"
+        teamRight="RED"
+        scoreLeft={13}
+        scoreRight={1}
+        logoLeft="/blue_side.svg"
+        logoRight="/red_side.svg"
+        date="21/12/2025"
+        time="11:00 pm"
+    />
+</section>

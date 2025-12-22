@@ -1,0 +1,18 @@
+---
+import Hero from "../../components/Hero.astro";
+import Matches from "../../components/Matches.astro";
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/global.css";
+---
+
+<Layout>
+    <Hero
+        title="Match History"
+        description="Consulte l'historique complet de tous les matchs custom. Retrouve les résultats, les scores, les dates et les horaires de chaque partie."
+        promote={true}
+    />
+    <hr
+        class="w-1/2 mx-auto lg:mt-12 py-8 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-black/10 dark:border-white/10 text-black dark:text-white"
+    />
+    <Matches />
+</Layout>

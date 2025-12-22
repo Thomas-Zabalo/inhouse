@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #181616;
+    color: #FFFFFF;
+}
+
+.header {
+    width: 100%;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #292727;
+    transition: background-color 0.2s ease;
+}
+
+main {
+    margin: .75rem .75rem;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+    width: calc(100% - 3rem);
+    max-height: 75px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-list,
+.nav-list-right {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list {
+    gap: 0.75rem;
+}
+
+.nav-list-right {
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.25rem 0.5rem;
+}
+
+.nav-link {
+    color: #e5e7eb;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: calc(100% - 1.5rem);
+    }
+}
+
+/* Matches Component Styles */
+#match-history {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.match-card {
+    width: 100%;
+    max-width: 800px;
+}
+
+.match-container {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: #3d3e3f .1rem solid;
+}
+
+.team {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.team-left {
+    justify-content: flex-end;
+    background: rgba(100, 100, 100, 0.1);
+}
+
+.team-right {
+    justify-content: flex-start;
+    background: rgba(100, 100, 100, 0.1);
+}
+
+.match-logo {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.team-logo {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.team-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+
+.team-right .team-info {
+    text-align: right;
+}
+
+.team-name {
+    padding: 0px 4px;
+    font-size: 14px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-label {
+    font-size: 12px;
+    color: #666;
+}
+
+.score-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    gap: 15px;
+    padding: 0 20px;
+    min-width: 140px;
+    background: rgba(100, 100, 100, 0.1);
+}
+
+.score {
+    text-align: center;
+}
+
+.score-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+
+.vs {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.match-info {
+    height: 60px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    min-width: 150px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.match-date {
+    font-size: 12px;
+    color: #999;
+}
+
+.match-time {
+    font-size: 11px;
+    color: #666;
+}
+
+@media (max-width: 456px) {
+
+    .match-info,
+    .match-logo {
+        display: none;
+    }
+
+    .team {
+        gap: 10px;
+    }
+
+    .team-name {
+        padding-inline: 4px;
+    }
+
+    .team-logo {
+        width: 50px;
+    }
+
+    .score-container {
+        gap: 5px;
+        width: 20px;
+        height: 20px;
+        padding: 0 20px;
+        min-width: auto;
+        background: rgba(100, 100, 100, 0.1);
+    }
+}
+
+@media (max-width: 624px) {
+
+    .match-info,
+    .match-logo {
+        display: none;
+    }
+
+    .team {
+        gap: 10px;
+    }
+
+    .team-name {
+        padding-inline: 4px;
+        font-size: 12px;
+    }
+
+    .team-logo img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .score-container {
+        width: 60px;
+        height: 60px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-right .team-info {
+        text-align: left;
+    }
+
+    .score-number {
+        font-size: 36px;
+    }
+
+    .match-info {
+        padding: 15px 20px;
+        min-width: auto;
+    }
+}
