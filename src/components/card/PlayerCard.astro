@@ -33,7 +33,7 @@ const { player } = Astro.props;
 
             <div class="flex items-center justify-between">
                 <span class="text-sm font-semibold text-blue-400 bg-zinc-800 px-4 py-2 rounded-lg">
-                    {player.data.team}
+                    {player.data.team ? player.data.team : "Orgless"}
                 </span>
                 {
                     player.data.twitter && (

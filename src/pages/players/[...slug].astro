@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import { playersData } from "../../data/playersStats.js";
 import "../../styles/global.css";
 import Table from "../../components/table/Table.astro";
+import PlayerProflile from "../../components/PlayerProfile.astro";
 
 export async function getStaticPaths() {
   const players = await getCollection("players");
@@ -29,10 +30,11 @@ const playerStats = playersData.find(
 ---
 
 <Layout>
-  <article class="prose">
+  <article class="w-2/3 flex flex-col items-center mx-auto my-12">
     <Content />
 
     {playerStats?.stats ? (
+      <PlayerProflile stats={playerStats.stats} />
       <Table stats={playerStats.stats} />
     ) : (
       <p>Aucune statistique disponible pour ce joueur</p>

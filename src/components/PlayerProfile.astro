@@ -1,0 +1,83 @@
+---
+interface AgentStat {
+  agentName: string;
+  use: number;
+  acs: number;
+  kd: string;
+  kast: string;
+  k: number;
+  d: number;
+  a: number;
+  fk: number;
+  fd: number;
+}
+
+interface Props {
+  stats?: AgentStat[];
+}
+
+const { stats = [] } = Astro.props;
+
+// Calculer les stats globales
+const totalMatches = stats.length > 0 ? stats[0].use : 0;
+const avgACS = stats.length > 0 
+  ? (stats.reduce((sum, s) => sum + s.acs, 0) / stats.length).toFixed(1)
+  : 0;
+const totalKills = stats.reduce((sum, s) => sum + s.k, 0);
+const totalDeaths = stats.reduce((sum, s) => sum + s.d, 0);
+const totalAssists = stats.reduce((sum, s) => sum + s.a, 0);
+const avgKD = (totalKills / Math.max(totalDeaths, 1)).toFixed(2);
+
+// Agent principal (le plus joué)
+const mainAgent = stats.length > 0 
+  ? stats.reduce((max, s) => s.use > max.use ? s : max)
+  : null;
+---
+
+<div class="w-full bg-gradient-to-b from-zinc-900 to-zinc-950 rounded-lg border border-zinc-800 p-8 mb-8">
+  {mainAgent && (
+    <div class="flex items-start justify-between mb-8">
+      <div class="flex-1">
+        <h2 class="text-3xl font-bold text-white mb-2">Statistiques Globales</h2>
+        <p class="text-zinc-400">Basées sur {stats.length} agent{stats.length > 1 ? 's' : ''}</p>
+      </div>
+      <img
+        src={`/agents/${mainAgent.agentName}.webp`}
+        alt={mainAgent.agentName}
+        class="w-24 h-24 rounded-sm opacity-80"
+      />
+    </div>
+  )}
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-zinc-900 rounded-sm p-4 border border-zinc-800">
+      <p class="text-zinc-400 text-sm font-medium mb-1">ACS Moyen</p>
+      <p class="text-2xl font-bold text-white">{avgACS}</p>
+    </div>
+
+    <div class="bg-zinc-900 rounded-sm p-4 border border-zinc-800">
+      <p class="text-zinc-400 text-sm font-medium mb-1">K:D Ratio</p>
+      <p class="text-2xl font-bold text-white">{avgKD}</p>
+    </div>
+
+    <div class="bg-zinc-900 rounded-sm p-4 border border-zinc-800">
+      <p class="text-zinc-400 text-sm font-medium mb-1">Total Kills</p>
+      <p class="text-2xl font-bold text-white">{totalKills}</p>
+    </div>
+
+    <div class="bg-zinc-900 rounded-sm p-4 border border-zinc-800">
+      <p class="text-zinc-400 text-sm font-medium mb-1">Total Assists</p>
+      <p class="text-2xl font-bold text-white">{totalAssists}</p>
+    </div>
+  </div>
+
+  {mainAgent && (
+    <div class="mt-6 bg-zinc-900 rounded-sm p-4 border border-zinc-800">
+      <p class="text-zinc-400 text-sm font-medium mb-2">Agent Principal</p>
+      <p class="text-white text-lg font-semibold">{mainAgent.agentName}</p>
+      <p class="text-zinc-400 text-sm mt-1">
+        {mainAgent.use} matchs joués ({((mainAgent.use / stats.reduce((sum, s) => sum + s.use, 0)) * 100).toFixed(1)}%)
+      </p>
+    </div>
+  )}
+</div>
