@@ -1,349 +1,62 @@
 ---
-import Table from "../../components/table/Table.astro";
-import Hero from "../../components/Hero.astro";
 import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import PlayerCard from "../../components/card/PlayerCard.astro";
+import { getCollection } from "astro:content";
 import "../../styles/global.css";
+
+const players = await getCollection("players");
+
+const playersData = players.sort((a, b) =>
+    a.data.nickname.localeCompare(b.data.nickname),
+);
 ---
 
 <Layout>
     <Hero
-        title="Player Statistics"
-        description="Retrouve toutes les statistiques de tous les joueurs : scores, performances et historiques complets de chaque match."
+        title="Players"
+        description="Découvre tous les joueurs de l'équipe REQUIEM"
         promote={true}
     />
+
     <hr
         class="w-1/2 mx-auto lg:mt-12 py-8 pt-10 flex items-center justify-center text-surface-0 border-t border-dashed border-black/10 dark:border-white/10 text-black dark:text-white"
     />
 
-    <div class="mb-6 flex items-center w-[70%] mx-auto justify-between">
-        <h2 class="text-white text-lg font-semibold mb-2">Requiem</h2>
-        <a
-            href="/players/requiem"
-            class="inline-block text-blue-400 hover:underline text-sm sm:text-base"
+    <div class="w-full flex justify-center mt-8">
+        <input
+            type="text"
+            id="search"
+            placeholder="Rechercher un joueur..."
+            class="px-4 py-2 border border-zinc-400 rounded-md w-full max-w-md"
+            onInput="filterPlayers()"
+        />
+    </div>
+
+    <section class="flex justify-center w-full px-4">
+        <div
+            id="players-container"
+            class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-12"
         >
-            Voir le profil &rarr;
-        </a>
-    </div>
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <Table
-            stats={[
-                {
-                    agentName: "omen",
-                    use: 1,
-                    acs: 315,
-                    kd: "1.7",
-                    kast: "86%",
-                    k: 27,
-                    d: 16,
-                    a: 5,
-                    fk: 1,
-                    fd: 0,
-                },
-                {
-                    agentName: "chamber",
-                    use: 1,
-                    acs: 347,
-                    kd: "4",
-                    kast: "100%",
-                    k: 20,
-                    d: 5,
-                    a: 0,
-                    fk: 4,
-                    fd: 0,
-                },
-            ]}
-        />
-    </div>
+            {playersData.map((player) => <PlayerCard player={player} />)}
+        </div>
+    </section>
 
-       <div class="mb-6 flex items-center w-[70%] mx-auto justify-between">
-        <h2 class="text-white text-lg font-semibold mb-2">Takaa</h2>
-        <a
-            href="/players/takaa"
-            class="inline-block text-blue-400 hover:underline text-sm sm:text-base"
-        >
-            Voir le profil &rarr;
-        </a>
-    </div>
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <Table
-            stats={[
-                {
-                    agentName: "raze",
-                    use: 1,
-                    acs: 286,
-                    kd: "1.1",
-                    kast: "77%",
-                    k: 20,
-                    d: 19,
-                    a: 6,
-                    fk: 6,
-                    fd: 5,
-                },
-                {
-                    agentName: "astra",
-                    use: 1,
-                    acs: 242,
-                    kd: "1.9",
-                    kast: "93%",
-                    k: 13,
-                    d: 7,
-                    a: 5,
-                    fk: 2,
-                    fd: 1,
-                },
-            ]}
-        />
-    </div>
+    <script type="text/javascript">
+        const players = Array.from(
+            document.querySelectorAll("#players-container > *"),
+        );
 
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Dnuzy</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "fade",
-                    use: 1,
-                    acs: 215,
-                    kd: "1.2",
-                    kast: "91%",
-                    k: 16,
-                    d: 13,
-                    a: 10,
-                    fk: 1,
-                    fd: 0,
-                },
-                {
-                    agentName: "sova",
-                    use: 1,
-                    acs: 203,
-                    kd: "0.6",
-                    kast: "71%",
-                    k: 9,
-                    d: 14,
-                    a: 3,
-                    fk: 2,
-                    fd: 0,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">S7V4N</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "killjoy",
-                    use: 1,
-                    acs: 184,
-                    kd: "0.7",
-                    kast: "59%",
-                    k: 12,
-                    d: 17,
-                    a: 5,
-                    fk: 4,
-                    fd: 4,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Berlu</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "iso",
-                    use: 2,
-                    acs: 86,
-                    kd: "0.4",
-                    kast: "57%",
-                    k: 11,
-                    d: 29,
-                    a: 6,
-                    fk: 0,
-                    fd: 4,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Shadow</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "neon",
-                    use: 1,
-                    acs: 318,
-                    kd: "1.5",
-                    kast: "82%",
-                    k: 24,
-                    d: 16,
-                    a: 8,
-                    fk: 3,
-                    fd: 4,
-                },
-                {
-                    agentName: "waylay",
-                    use: 1,
-                    acs: 283,
-                    kd: "2.5",
-                    kast: "100%",
-                    k: 15,
-                    d: 6,
-                    a: 4,
-                    fk: 2,
-                    fd: 0,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Timon</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "breach",
-                    use: 1,
-                    acs: 222,
-                    kd: "1.1",
-                    kast: "73%",
-                    k: 18,
-                    d: 17,
-                    a: 6,
-                    fk: 1,
-                    fd: 2,
-                },
-                {
-                    agentName: "neon",
-                    use: 1,
-                    acs: 110,
-                    kd: "0.3",
-                    kast: "36%",
-                    k: 4,
-                    d: 14,
-                    a: 1,
-                    fk: 2,
-                    fd: 2,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Hombebar</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "brimstone",
-                    use: 1,
-                    acs: 197,
-                    kd: "0.9",
-                    kast: "55%",
-                    k: 15,
-                    d: 17,
-                    a: 11,
-                    fk: 1,
-                    fd: 3,
-                },
-                {
-                    agentName: "astra",
-                    use: 1,
-                    acs: 216,
-                    kd: "0.8",
-                    kast: "50%",
-                    k: 11,
-                    d: 13,
-                    a: 1,
-                    fk: 0,
-                    fd: 3,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Mehdi</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "killjoy",
-                    use: 1,
-                    acs: 178,
-                    kd: "0.9",
-                    kast: "77%",
-                    k: 15,
-                    d: 16,
-                    a: 2,
-                    fk: 3,
-                    fd: 2,
-                },
-                {
-                    agentName: "vyse",
-                    use: 1,
-                    acs: 84,
-                    kd: "0.3",
-                    kast: "29%",
-                    k: 4,
-                    d: 14,
-                    a: 0,
-                    fk: 0,
-                    fd: 2,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">PhoebuZ</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "phoenix",
-                    use: 1,
-                    acs: 127,
-                    kd: "0.4",
-                    kast: "59%",
-                    k: 8,
-                    d: 18,
-                    a: 6,
-                    fk: 2,
-                    fd: 1,
-                },
-                {
-                    agentName: "kayo",
-                    use: 1,
-                    acs: 314,
-                    kd: "3.4",
-                    kast: "100%",
-                    k: 17,
-                    d: 5,
-                    a: 8,
-                    fk: 2,
-                    fd: 0,
-                },
-            ]}
-        />
-    </div>
-
-    <div class="overflow-x-auto w-[70%] mx-auto mb-10">
-        <h2 class="text-white text-lg font-semibold mb-4">Austral</h2>
-        <Table
-            stats={[
-                {
-                    agentName: "fade",
-                    use: 1,
-                    acs: 105,
-                    kd: "0.5",
-                    kast: "79%",
-                    k: 4,
-                    d: 8,
-                    a: 8,
-                    fk: 0,
-                    fd: 3,
-                },
-            ]}
-        />
-    </div>
+        function filterPlayers() {
+            const query = document.getElementById("search").value.toLowerCase();
+            players.forEach((playerCard) => {
+                const name = playerCard
+                    .querySelector("h3")
+                    .textContent.toLowerCase();
+                playerCard.style.display = name.includes(query)
+                    ? "block"
+                    : "none";
+            });
+        }
+    </script>
 </Layout>

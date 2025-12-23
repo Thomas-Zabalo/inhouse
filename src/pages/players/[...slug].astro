@@ -1,22 +1,42 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { playersData } from "../../data/playersStats.js";
 import "../../styles/global.css";
+import Table from "../../components/table/Table.astro";
 
 export async function getStaticPaths() {
-  const projectEntries = await getCollection("players");
-  return projectEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
+  const players = await getCollection("players");
+  return players.map((player) => ({
+    params: { slug: player.slug },
   }));
 }
 
-const { entry } = Astro.props;
+const { slug } = Astro.params;
+
+// récupérer le joueur depuis astro:content
+const players = await getCollection("players");
+const entry = players.find((p) => p.slug === slug);
+
+if (!entry) throw new Error(`Player not found: ${slug}`);
+
 const { Content } = await entry.render();
+
+// récupérer les stats depuis ton tableau
+const playerStats = playersData.find(
+  (p) => p.name.toLowerCase() === slug.toLowerCase()
+);
 ---
 
 <Layout>
   <article class="prose">
     <Content />
+
+    {playerStats?.stats ? (
+      <Table stats={playerStats.stats} />
+    ) : (
+      <p>Aucune statistique disponible pour ce joueur</p>
+    )}
   </article>
 </Layout>
+

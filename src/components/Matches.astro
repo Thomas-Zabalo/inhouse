@@ -2,25 +2,40 @@
 import MatchCard from "./card/MatchCard.astro";
 ---
 
-<section id="match-history">
-    <MatchCard
-        teamLeft="BLUE"
-        teamRight="RED"
-        scoreLeft={13}
-        scoreRight={9}
-        logoLeft="/blue_side.svg"
-        logoRight="/red_side.svg"
-        date="21/12/2025"
-        time="10:00 pm"
-    />
-    <MatchCard
-        teamLeft="BLUE"
-        teamRight="RED"
-        scoreLeft={13}
-        scoreRight={1}
-        logoLeft="/blue_side.svg"
-        logoRight="/red_side.svg"
-        date="21/12/2025"
-        time="11:00 pm"
-    />
+<section class="flex justify-center w-full">
+    <div class="w-3/4 grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-4 my-6">
+        <MatchCard
+            teamLeft="BLUE"
+            teamRight="RED"
+            scoreLeft={13}
+            scoreRight={9}
+            logoLeft="/blue_side.svg"
+            logoRight="/red_side.svg"
+            map="Fracture"
+            date="21/12/2025"
+            time="10:00 pm"
+        />
+        <MatchCard
+            teamLeft="BLUE"
+            teamRight="RED"
+            scoreLeft={13}
+            scoreRight={1}
+            logoLeft="/blue_side.svg"
+            logoRight="/red_side.svg"
+            map="Abyss"
+            date="21/12/2025"
+            time="11:00 pm"
+        />
+        <MatchCard
+            teamLeft="BLUE"
+            teamRight="RED"
+            scoreLeft={13}
+            scoreRight={8}
+            logoLeft="/blue_side.svg"
+            logoRight="/red_side.svg"
+            map="Fracture"
+            date="22/12/2025"
+            time="11:00 pm"
+        />
+    </div>
 </section>

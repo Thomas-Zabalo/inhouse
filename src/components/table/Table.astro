@@ -13,10 +13,10 @@ interface AgentStat {
 }
 
 interface Props {
-  stats: AgentStat[];
+  stats?: AgentStat[]; // optionnel pour sécurité
 }
 
-const { stats } = Astro.props;
+const { stats = [] } = Astro.props;
 
 // Calculer le total des "use"
 const totalUses = stats.reduce((sum, s) => sum + s.use, 0);
@@ -24,12 +24,12 @@ const totalUses = stats.reduce((sum, s) => sum + s.use, 0);
 // Ajouter le pourcentage automatiquement
 const statsWithPercent = stats.map((s) => ({
   ...s,
-  percent: ` (${((s.use / totalUses) * 100).toFixed(1)}%)`
+  percent: totalUses > 0 ? ` (${((s.use / totalUses) * 100).toFixed(1)}%)` : " (0%)"
 }));
 ---
 
-<table class="min-w-full divide-y divide-gray-600 text-gray-200 overflow-hidden">
-  <thead class="bg-neutral-800">
+<table class="min-w-full divide-y divide-zinc-700 text-zinc-100 overflow-hidden">
+  <thead class="bg-zinc-900">
     <tr>
       <th class="px-4 py-2 text-left text-sm font-medium">Agent</th>
       <th class="px-4 py-2 text-left text-sm font-medium">Use</th>
@@ -43,9 +43,9 @@ const statsWithPercent = stats.map((s) => ({
       <th class="px-4 py-2 text-left text-sm font-medium">FD</th>
     </tr>
   </thead>
-  <tbody class="bg-gray-900 divide-y divide-gray-600">
+  <tbody class="bg-zinc-950 divide-y divide-zinc-800">
     {statsWithPercent.map((stat, i) => (
-      <tr class={i % 2 === 0 ? "bg-slate-800" : "bg-gray-800"}>
+      <tr class={i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950"}>
         <td class="px-4 py-2 flex items-center gap-2">
           <img
             src={`/agents/${stat.agentName}.webp`}
